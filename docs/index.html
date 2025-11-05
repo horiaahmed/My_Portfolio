@@ -1,139 +1,612 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <title>Horia's Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* ... (CSS animations are fine) ... */
-    .fade-in { animation: fadeIn 0.3s ease-in-out; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.97); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes slideUpFade {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .skill { opacity: 0; animation: slideUpFade 0.8s ease forwards; }
-    .skill:nth-child(1) { animation-delay: 0.2s; }
-    .skill:nth-child(2) { animation-delay: 0.4s; }
-    .skill:nth-child(3) { animation-delay: 0.6s; }
-    .skill:nth-child(4) { animation-delay: 0.8s; }
-  </style>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Horia Ahmed — Data Analyst</title>
+
+	<!-- Font & icons -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+	<style>
+		/* -------------------------
+			THEME (Black & White / Monochrome)
+			------------------------- */
+		:root{
+			--bg-light: #F7F7F7; /* Very light grey background */
+			--text-primary: #111111; /* Main text (Black) */
+			--text-secondary: #666666; /* Muted text */
+			--accent-primary: #000000; /* Primary accent color (Black) */
+			--accent-dark: #111111; /* Sidebar background color */
+			--card-white: #ffffff; /* White cards */
+			--border-color: #E0E0E0; /* Light border */
+			--muted: #AAAAAA; /* Footer/metadata text */
+			--radius: 14px;
+			--max-width: 1100px;
+		}
+
+		/* Reset / base */
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0;
+			font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+			color:var(--text-primary);
+			/* Changed to solid light gray background */
+			background: var(--bg-light); 
+			-webkit-font-smoothing:antialiased;
+			-moz-osx-font-smoothing:grayscale;
+			line-height:1.55;
+			scroll-behavior:smooth;
+		}
+
+		a{color:inherit}
+		img{max-width:100%;display:block}
+
+		/* -------------------------
+			LAYOUT
+			------------------------- */
+		.portfolio-layout{
+			display:grid;
+			grid-template-columns: 300px 1fr;
+			min-height:100vh;
+			gap:36px;
+			max-width: calc(var(--max-width) + 320px);
+			margin: 40px auto;
+			padding: 0 20px;
+		}
+
+		/* SIDEBAR */
+		#sidebar{
+			grid-column:1/2;
+			/* Changed to solid black background */
+			background: var(--accent-dark);
+			color:var(--card-white);
+			padding:28px 22px;
+			border-radius:var(--radius);
+			position:sticky;
+			top:28px;
+			height: calc(100vh - 56px);
+			display:flex;
+			flex-direction:column;
+			align-items:center;
+			gap:18px;
+			/* Changed box shadow to use black opacity */
+			box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+			top: 20px; 		
+			left: 20px;
+		} 
+
+
+		.logo{
+			font-size:1.5rem;
+			font-weight:700;
+			letter-spacing:0.6px;
+			text-align:center;
+		}
+
+		.profile-pic{
+			width:120px;
+			height:120px;
+			object-fit:cover;
+			border-radius:999px;
+			border:4px solid rgba(255,255,255,0.12);
+			box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+		}
+
+		.sidebar-title{font-size:1.05rem;font-weight:600;margin:6px 0}
+		.sidebar-sub{font-size:2 rem;color:rgba(255,255,255,0.85);line-height:1.3;text-align:center;margin-bottom:6px}
+		.sidebar-tag{font-size:0.82rem;color:var(--border-color);text-align:center}
+
+		/* nav vertical */
+		.sidebar-nav{
+			width:100%;
+			margin-top:12px;
+		}
+		.sidebar-nav a{
+			display:flex;
+			gap:12px;
+			align-items:center;
+			padding:10px 12px;
+			border-radius:10px;
+			color:rgba(255,255,255,0.95);
+			text-decoration:none;
+			font-weight:600;
+			background:transparent;
+			transition: all .22s ease;
+		}
+		.sidebar-nav a i{width:22px;text-align:center;color:rgba(255,255,255,0.85)}
+		.sidebar-nav a:hover{background:rgba(255,255,255,0.06); transform:translateY(-2px)}
+		/* Active state uses the new black accent */
+		.sidebar-nav a.active-nav{ background: var(--accent-primary); color: #fff; box-shadow: 0 8px 18px rgba(0,0,0,0.18) }
+
+		.sidebar-contact{
+			margin-top:auto;
+			display:flex;
+			gap:12px;
+			align-items:center;
+		}
+		.sidebar-contact a{
+			color:var(--card-white);
+			background: rgba(255,255,255,0.06);
+			padding:8px;
+			border-radius:10px;
+			display:inline-flex;
+			align-items:center;
+			justify-content:center;
+			min-width:40px;
+			transition: all .18s;
+		}
+		/* Hover uses the new black accent */
+		.sidebar-contact a:hover{ background: var(--accent-primary); transform: scale(1.06) }
+		.sidebar-resume{
+			margin-top:14px;
+			width:100%;
+			text-align:center;
+		}
+		.btn-resume{
+			display:inline-block;
+			background:var(--card-white);
+			color:var(--accent-dark);
+			padding:10px 14px;
+			border-radius:10px;
+			font-weight:700;
+			text-decoration:none;
+			box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+		}
+
+		/* MAIN */
+		#main-content{
+			grid-column:2/3;
+		}
+		.container{max-width:var(--max-width);margin:0 auto;padding:18px}
+
+		/* -------------------------
+			HERO / ABOUT
+			------------------------- */
+		.hero{
+			/* Solid white background for hero section */
+			background: var(--card-white); 
+			border-radius: var(--radius);
+			padding:44px;
+			box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+			overflow:hidden;
+		}
+
+		.hero-inner{
+			display:flex;
+			gap:28px;
+			align-items:center;
+			justify-content:space-between;
+			flex-wrap:wrap;
+		}
+
+		.hero-copy{flex:1 1 480px; min-width:260px}
+		.hero-title{
+			margin:0;
+			font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+			line-height:1.05;
+			/* Changed to use the new black accent */
+			color:var(--accent-dark);
+			font-weight:700;
+			margin-bottom:12px;
+		}
+		.hero-sub{ color:var(--text-secondary); font-size:1rem; margin-bottom:18px; line-height:1.5 }
+
+		.hero-cta{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+		.btn-primary{
+			/* Solid black button */
+			background: var(--accent-primary);
+			color:#fff;
+			padding:12px 18px;
+			border-radius:12px;
+			font-weight:700;
+			text-decoration:none;
+			/* Black box shadow */
+			box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+			transition: transform .16s ease, box-shadow .16s;
+		}
+		/* Black box shadow on hover */
+		.btn-primary:hover{ transform:translateY(-3px); box-shadow: 0 16px 34px rgba(0,0,0,0.18) }
+
+		.btn-outline{
+			/* Outline uses black accent */
+			border: 2px solid var(--accent-primary);
+			color:var(--accent-primary);
+			background:transparent;
+			padding:10px 16px;
+			border-radius:10px;
+			text-decoration:none;
+			font-weight:600;
+		}
+		.hero-figure{
+			width:320px;
+			max-width:40%;
+			border-radius:12px;
+			overflow:hidden;
+			/* Light gray background for image container */
+			background: var(--bg-light);
+			box-shadow: 0 10px 26px rgba(0,0,0,0.06);
+			padding:14px;
+			display:flex;
+			justify-content:center;
+			align-items:center;
+		}
+		.hero-figure img{ width:100%; height: auto; border-radius:8px; object-fit:cover }
+
+		/* tiny badges / meta */
+		.hero-meta{
+			display:flex;
+			gap:10px;
+			margin-top:16px;
+			flex-wrap:wrap;
+		}
+		.meta-pill{
+			background: #fff;
+			padding:8px 10px;
+			border-radius:999px;
+			color:var(--text-secondary);
+			font-weight:600;
+			border:1px solid var(--border-color);
+			font-size:0.9rem;
+			display:inline-flex;
+			gap:8px;
+			align-items:center;
+			box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+		}
+		/* Icon color is dark */
+		.meta-pill i{color:var(--accent-dark) !important;}
+
+
+		/* -------------------------
+			SKILLS
+			------------------------- */
+		.skills-section{ padding:36px 0 }
+		.skills-grid{
+			display:grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap:20px;
+		}
+
+		.skill-card{
+			background:var(--card-white);
+			padding:18px;
+			border-radius:12px;
+			border:1px solid var(--border-color);
+			box-shadow: 0 8px 22px rgba(0,0,0,0.04);
+			text-align:center;
+			transition: transform .18s, box-shadow .18s, border-color .18s;
+		}
+		.skill-card:hover{
+			transform:translateY(-6px);
+			/* Black box shadow and border on hover */
+			box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+			border-color: var(--accent-primary);
+		}
+		/* Icon color is dark */
+		.skill-card i{ font-size:1.7rem; color:var(--accent-dark); margin-bottom:10px }
+		.skill-card h4{ margin:6px 0 8px; font-size:1rem; color:var(--accent-dark) }
+		.skill-card p{ color:var(--text-secondary); font-size:0.92rem }
+
+		/* -------------------------
+			PROJECTS
+			------------------------- */
+		.projects-section{ padding:36px 0 50px 0 }
+		.projects-grid{
+			display:grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap:20px;
+		}
+		.project-card{
+			border-radius:12px;
+			overflow:hidden;
+			border:1px solid var(--border-color);
+			background: linear-gradient(180deg,var(--bg-light), #fff);
+			transition: transform .18s, box-shadow .18s, border-color .18s;
+			display:flex;
+			flex-direction:column;
+			width: 450px;
+			
+			
+		}
+		.project-card:hover{ transform:translateY(-8px); box-shadow: 0 22px 50px rgba(0,0,0,0.08); border-color:var(--accent-primary) }
+		/* Project thumbnail border and background are now black/gray */
+		.project-thumb{ width:100%; height:100%; object-fit:cover; background:#DDDDDD; border-bottom:4px solid var(--accent-primary) }
+		.project-body{ padding:18px; flex:1; display:flex; flex-direction:column }
+		/* Category text is dark black */
+		.project-category{ font-size:0.78rem; color:var(--accent-dark); font-weight:800; letter-spacing:1px; text-transform:uppercase }
+		.project-title{ margin:10px 0 8px; font-weight:700; color:var(--accent-dark) }
+		.project-desc{ color:var(--text-secondary); font-size:0.95rem; flex:1 }
+		.project-actions{ display:flex; gap:12px; margin-top:14px }
+
+		/* -------------------------
+			CONTACT & FOOTER
+			------------------------- */
+		.contact-section{ padding:50px 0; text-align:center; background:transparent }
+		.contact-card{
+			max-width:720px;margin: 0 auto;background:var(--card-white);
+			padding:20px;border-radius:12px;border:1px solid var(--border-color);
+			box-shadow: 0 12px 34px rgba(0,0,0,0.05)
+		}
+		/* Contact button is solid black */
+		.contact-btn{ display:inline-flex; gap:10px; align-items:center; padding:10px 16px; border-radius:10px; background:var(--accent-primary); color:#fff; text-decoration:none; font-weight:700 }
+
+		.footer{ text-align:center; padding:18px; color:var(--muted); font-size:0.92rem; margin-top:30px }
+
+		/* -------------------------
+			ANIMATIONS
+			------------------------- */
+		@keyframes fadeInUp {
+			from{opacity:0; transform:translateY(18px)}
+			to{opacity:1; transform:none}
+		}
+		.reveal{ opacity:0; transform: translateY(12px); transition: all .6s cubic-bezier(.2,.9,.3,1) }
+
+		.reveal.show{ opacity:1; transform:none }
+
+		/* -------------------------
+			RESPONSIVE
+			------------------------- */
+		@media (max-width: 1100px){
+			.portfolio-layout{ grid-template-columns: 1fr; gap:18px; margin:24px auto; padding:0 18px }
+			#sidebar{
+				position:relative;height:auto; padding:20px; flex-direction:row; gap:16px; align-items:center; border-radius:12px;
+			}
+			.logo{font-size:1.05rem}
+			.profile-pic{width:64px;height:64px;border-width:3px}
+			.sidebar-title{display:none}
+			.sidebar-sub{display:none}
+			.sidebar-nav{ display:flex; gap:10px; margin-top:0; flex-wrap:wrap; justify-content:center; width:100% }
+			#main-content{ grid-column:1/2 }
+			.hero-inner{ flex-direction:column; align-items:center }
+			.hero-figure{ width:100%; max-width:480px }
+			.skills-grid{ grid-template-columns:1fr; }
+			.projects-grid{ grid-template-columns:1fr; }
+		}
+
+		@media (max-width: 480px){
+			.hero{ padding:20px }
+			.hero-title{ font-size:1.5rem }
+			.btn-primary{ padding:10px 14px }
+		}
+
+		/* focus outline for accessibility (using the new black accent) */
+		a:focus, button:focus { outline: 3px solid rgba(0,0,0,0.18); outline-offset:3px; border-radius:8px }
+	</style>
 </head>
+<body>
 
-<body class="flex flex-col items-center justify-start min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white font-sans overflow-x-hidden">
-  
-  <div class="w-full md:w-[95%] max-w-7xl bg-gray-900/60 rounded-none md:rounded-3xl shadow-2xl border border-gray-700 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 md:gap-6 p-4 md:p-6 mt-4 md:mt-12 mb-4">
-    <div class="col-span-1 row-span-2 flex flex-col items-center justify-center text-center space-y-4 bg-gray-800/50 rounded-2xl p-6 order-1">
-      <img src="photo_2025-07-30_17-33-01.jpg" alt="Profile Photo" class="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full border-4 border-indigo-500 shadow-lg object-cover">
-      <h1 class="text-2xl sm:text-3xl font-bold">Horia Ahmed</h1>
-      <p class="text-gray-400 text-sm sm:text-base">Data Analyst</p>
-      <p class="text-gray-300 text-sm leading-relaxed max-w-xs sm:max-w-sm">
-        Passionate about transforming data into meaningful insights.
-      </p>
-      <a href="https://drive.google.com/file/d/1f0VHj8q5mw2BaqzsGp_1h2OKipcaWeX9/view?usp=sharing" target="_blank"
-         class="inline-flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 transition px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm font-semibold mt-3">
-        <i class="fas fa-file-alt text-white"></i>
-        <span>Checkout My Resume</span>
-      </a>
-    </div>
+  <main class="portfolio-layout">
 
-    <div class="col-span-2 bg-gray-800/50 rounded-2xl p-5 sm:p-6 flex flex-col justify-center order-2">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-3">About Me</h2>
-      <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
-        Hi, I'm Horia — a data analyst skilled in Python, SQL, Excel, and Power BI. I specialize in turning raw data into actionable insights through data cleaning, exploration, and interactive dashboards.
-      </p>
-    </div>
-
-    <div class="col-span-2 bg-gray-800/50 rounded-2xl p-5 sm:p-6 flex flex-col justify-start shadow-lg order-3">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-white">Skills</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-300 text-sm sm:text-base">
-        <div class="flex items-center space-x-2 skill">
-          <i class="fas fa-file-excel text-green-400 text-lg sm:text-xl"></i>
-          <span>Excel (Pivot Tables, Power Query, Power Pivot)</span>
-        </div>
-        <div class="flex items-center space-x-2 skill">
-          <i class="fas fa-database text-yellow-400 text-lg sm:text-xl"></i>
-          <span>SQL (Data extraction, Joins, Optimization)</span>
-        </div>
-        <div class="flex items-center space-x-2 skill">
-          <i class="fas fa-chart-pie text-blue-400 text-lg sm:text-xl"></i>
-          <span>Power BI (DAX, Modeling, Dashboards)</span>
-        </div>
-        <div class="flex items-center space-x-2 skill">
-          <i class="fab fa-python text-yellow-300 text-lg sm:text-xl"></i>
-          <span>Python (Data Cleaning & Analysis)</span>
-        </div>
+    <!-- SIDEBAR -->
+    <aside id="sidebar" aria-label="Main sidebar">
+      <div style="text-align:center">
+        <div class="logo">Horia Ahmed</div>
+        <!-- <div class="sidebar-title" style="margin-top:6px">Data Storyteller</div> -->
       </div>
-    </div>
 
-    <div class="col-span-3 bg-gray-800/50 rounded-2xl p-5 sm:p-6 flex flex-col justify-center order-4">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-4">Projects</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        
-        <div class="bg-gray-700/50 rounded-2xl overflow-hidden cursor-pointer group hover:shadow-2xl transition"
-             onclick="openModal('2025-09-19.png', 'Coffee Shop Sales Dashboard', 'Dashboard built with Excel & Power Query', 'https://github.com/horiaahmed/Coffoe-Shop-Sales')">
-          <img src="2025-09-19.png" class="w-full h-40 sm:h-52 md:h-72 object-cover group-hover:scale-105 transition duration-500">
-          <div class="p-3 text-center text-sm font-semibold text-white">Coffee Shop Sales Dashboard</div>
-        </div>
+      <img src="photo_2025-07-30_17-33-01.jpg" alt="Horia Ahmed" class="profile-pic" />
 
-        <div class="bg-gray-700/50 rounded-2xl overflow-hidden cursor-pointer group hover:shadow-2xl transition"
-             onclick="openModal('2025-09-22 (1).png', 'HR Analysis Dashboard', 'Salary analysis dashboard with Excel & Power Query', 'https://github.com/horiaahmed/Hr-analysis-Based-on-Salary')">
-          <img src="2025-09-22 (1).png" class="w-full h-40 sm:h-52 md:h-72 object-cover group-hover:scale-105 transition duration-500">
-          <div class="p-3 text-center text-sm font-semibold text-white">HR Analysis Dashboard</div>
-        </div>
+      <h2 class="sidebar-sub">Data Analyst</h2>
+      <div class="sidebar-tag">Turning data into clear business impact</div>
 
-        <div class="bg-gray-700/50 rounded-2xl overflow-hidden cursor-pointer group hover:shadow-2xl transition"
-             onclick="openModal('2025-10-09 (2).png', 'Students Performance Dashboard', 'Students Performance analysis dashboard with Excel & Power Query', 'https://github.com/horiaahmed/Students-Performance-Analysis')">
-          <img src="2025-10-08.png" class="w-full h-40 sm:h-52 md:h-72 object-cover group-hover:scale-105 transition duration-500">
-          <div class="p-3 text-center text-sm font-semibold text-white">Students Performance Dashboard</div>
-        </div>
+      <nav class="sidebar-nav" aria-label="Primary">
+        <a href="#about" class="active-nav" data-target="about"><i class="fas fa-user-circle"></i> About</a>
+        <a href="#skills" data-target="skills"><i class="fas fa-cogs"></i> Skills</a>
+        <a href="#projects" data-target="projects"><i class="fas fa-project-diagram"></i> Projects</a>
+        <a href="#contact" data-target="contact"><i class="fas fa-handshake"></i> Contact</a>
+      </nav>
+
+      <div class="sidebar-resume">
+        <a class="btn-resume" href="https://drive.google.com/file/d/1f0VHj8q5mw2BaqzsGp_1h2OKipcaWeX9/view?usp=sharing" target="_blank" rel="noopener">
+          <i class="fas fa-file-download" style="margin-right:8px"></i>Download CV
+        </a>
       </div>
+
+      <div class="sidebar-contact" aria-hidden="false" style="margin-top:12px">
+        <a href="https://www.linkedin.com/in/horia-ahmed-926898281/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/horiaahmed" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:horiaahmed157@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <section id="main-content" class="container" aria-live="polite">
+
+      <!-- HERO / ABOUT -->
+      <section id="about" class="hero reveal" tabindex="-1" aria-labelledby="about-heading">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <h1 id="about-heading" class="hero-title">Welcome to my data-driven World</h1>
+            <p class="hero-sub">
+              I transform complex datasets into clear, profitable <strong style="color:var(--accent-primary)">business strategies to extract useful insights</strong> .
+            </p>
+
+            <div class="hero-cta" role="group" aria-label="Primary actions">
+              <a href="#projects" class="btn-primary">Explore Projects →</a>
+              <a class="btn-outline" href="#contact">Work with me</a>
+            </div>
+
+            <div class="hero-meta" aria-hidden="true">
+              <span class="meta-pill"><i class="fas fa-clock" style="color:var(--accent-primary)"></i> Available</span>
+            
+            </div>
+          </div>
+
+          <div class="hero-figure" aria-hidden="true">
+            <!-- Use a dashboard screenshot or personal illustration -->
+            <img src="Analysis Photos - Download Free High-Quality Pictures _ Freepik.jpg" alt="Dashboard preview">
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="skills-section">
+        <div class="reveal">
+          <h3 style="text-align:center;color:var(--accent-dark)">Technical Skills</h3>
+          <div class="skills-grid" style="margin-top:18px">
+            <div class="skill-card">
+              <i class="fas fa-database" aria-hidden="true"></i>
+              <h4>Data Managment</h4>
+              <p>SQL (MySQL), ETL/ELT pipelines, dimensional modeling, DB performance tuning.</p>
+            </div>
+
+            <div class="skill-card">
+              <i class="fas fa-code" aria-hidden="true"></i>
+              <h4>Analysis & Modeling</h4>
+              <p>Python (pandas, scikit-learn), statistics, model validation, reproducible code & version control.</p>
+            </div>
+
+            <div class="skill-card">
+              <i class="fas fa-chart-line" aria-hidden="true"></i>
+              <h4>Visualization & BI</h4>
+              <p>Power BI, Tableau,  advanced Excel—data storytelling to support business decisions.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+<section id="projects" class="projects-section">
+  <div class="reveal">
+    <h2 style="text-align:center;color:var(--accent-dark)"> Projects</h2>
+
+    <div class="projects-grid" style="margin-top:18px">
+
+      <!-- Coffee Shop Sales Dashboard -->
+      <article class="project-card" aria-labelledby="p1"
+               onclick="openModal('2025-09-19.png','Coffee Shop Sales Dashboard','Dashboard built using Excel & Power Query','https://github.com/horiaahmed/Coffoe-Shop-Sales')">
+        <img class="project-thumb" src="2025-09-19.png" alt="Coffee Shop Sales Dashboard thumbnail">
+        <div class="project-body">
+          <span class="project-category">BI Dashboard</span>
+          <h4 id="p1" class="project-title">Coffee Shop Sales Dashboard</h4>
+          <p class="project-desc">
+            Built using Excel & Power Query to analyze sales trends, top products, and revenue patterns.
+          </p>
+          <div class="project-actions">
+            <a class="btn-primary" href="https://github.com/horiaahmed/Coffoe-Shop-Sales" target="_blank">
+              <i class="fas fa-chart-area"></i>&nbsp;View Project
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- HR Analysis Dashboard -->
+      <article class="project-card" aria-labelledby="p2"
+               onclick="openModal('2025-09-22 (1).png','HR Analysis Dashboard','Salary analysis dashboard built using Excel','https://github.com/horiaahmed/Hr-analysis-Based-on-Salary')">
+        <img class="project-thumb" src="2025-09-22 (1).png" alt="HR dashboard thumbnail">
+        <div class="project-body">
+          <span class="project-category">BI Dashboard</span>
+          <h4 id="p2" class="project-title">HR Analysis Dashboard</h4>
+          <p class="project-desc">
+            Salary and workforce insights dashboard to support HR decisions on compensation & retention.
+          </p>
+          <div class="project-actions">
+            <a class="btn-primary" href="https://github.com/horiaahmed/Hr-analysis-Based-on-Salary" target="_blank">
+              <i class="fas fa-chart-area"></i>&nbsp;View Project
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Students Performance Dashboard -->
+      <article class="project-card" aria-labelledby="p3"
+               onclick="openModal('2025-10-08.png','Students Performance Dashboard','Performance dashboard built using Excel & Power Query','https://github.com/horiaahmed/Students-Performance-Analysis')">
+        <img class="project-thumb" src="2025-10-08.png" alt="Students Performance Dashboard thumbnail">
+        <div class="project-body">
+          <span class="project-category">BI Dashboard</span>
+          <h4 id="p3" class="project-title">Students Performance Dashboard</h4>
+          <p class="project-desc">
+            Dashboard analyzing student scores and identifying performance patterns using Excel & Power Query.
+          </p>
+          <div class="project-actions">
+            <a class="btn-primary" href="https://github.com/horiaahmed/Students-Performance-Analysis" target="_blank">
+              <i class="fas fa-chart-area"></i>&nbsp;View Project
+            </a>
+          </div>
+        </div>
+      </article>
+
     </div>
   </div>
+</section>
 
-  <section id="contact" class="py-12 px-4 w-full max-w-7xl mt-6 md:mt-12">
-    <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Get In Touch</h2>
-    <div class="bg-gray-800/50 p-6 sm:p-10 rounded-2xl shadow-lg max-w-2xl mx-auto text-center">
-      <p class="mb-6 text-gray-300 text-sm sm:text-base">Feel free to reach out for collaborations or questions!</p>
-      <div class="flex justify-center space-x-8 sm:space-x-10 text-xl sm:text-2xl">
-        <a href="mailto:horiaahmed157@gmail.com" class="hover:text-blue-500 transition"><i class="fas fa-envelope"></i></a>
-        <a href="https://www.linkedin.com/in/horia-ahmed-926898281/" target="_blank" class="hover:text-blue-500 transition"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/horiaahmed" target="_blank" class="hover:text-gray-400 transition"><i class="fab fa-github"></i></a>
-      </div>
-    </div>
-  </section>
+      <!-- CONTACT -->
+      <section id="contact" class="contact-section">
+        <div class="contact-card reveal" role="region" aria-labelledby="contact-h">
+          <h3 id="contact-h" style="color:var(--accent-dark)">Let's build something with data</h3>
+          <p style="color:var(--text-secondary)">I’m available for freelance and full-time opportunities. Tell me about your problem and I’ll propose a data-first solution.</p>
+          <div style="margin-top:18px;">
+            <a class="contact-btn" href="mailto:horiaahmed157@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> Email Me</a>
+          </div>
+        </div>
+      </section>
 
-  <div id="modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4">
-    <div class="bg-gray-900 rounded-2xl p-4 max-w-5xl w-full relative fade-in overflow-hidden">
-      <button onclick="closeModal()" class="absolute top-3 right-4 text-white text-3xl hover:text-red-400">&times;</button>
-      <img id="modalImage" src="" alt="Project Image" class="rounded-lg w-full h-auto max-h-[80vh] object-contain mb-4">
-      <h3 id="modalTitle" class="text-2xl font-bold mb-2"></h3>
-      <p id="modalDesc" class="text-gray-300 text-base mb-4"></p>
-      <a id="modalGitHub" href="#" target="_blank" class="inline-flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 px-5 py-2 rounded-lg text-sm transition">
-        <i class="fab fa-github text-xl"></i><span>View on GitHub</span>
-      </a>
-    </div>
-  </div>
+      <div class="footer">© 2025 Horia Ahmed</div>
+    </section>
+  </main>
 
   <script>
-    function openModal(image, title, desc, githubLink) {
-      document.getElementById('modalImage').src = image;
-      document.getElementById('modalTitle').innerText = title;
-      document.getElementById('modalDesc').innerText = desc;
-      document.getElementById('modalGitHub').href = githubLink;
-      document.getElementById('modal').classList.remove('hidden');
-      document.getElementById('modal').classList.add('flex');
-    }
-    function closeModal() {
-      const modal = document.getElementById('modal');
-      modal.classList.remove('flex');
-      modal.classList.add('hidden');
-    }
+    // IntersectionObserver for reveal animations (better UX than timeouts)
+    (function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            // add 'reveal' class show for elements that use it
+            if (entry.target.classList.contains('reveal')) {
+              entry.target.classList.add('show');
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      // observe hero, skill cards, projects, contact-card
+      document.querySelectorAll('.reveal, .hero, .skill-card, .project-card, .contact-card').forEach(el => {
+        observer.observe(el);
+      });
+    })();
+
+    // Smooth scroll & active nav management
+    (function() {
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      const sections = document.querySelectorAll('section[id]');
+
+      function setActiveByScroll(){
+        const scrollPos = window.scrollY + window.innerHeight * 0.25;
+        let current = null;
+        sections.forEach(s => {
+          if (s.offsetTop <= scrollPos) current = s.id;
+        });
+        navLinks.forEach(a => {
+          a.classList.toggle('active-nav', a.getAttribute('href').substring(1) === current);
+        });
+      }
+      setActiveByScroll();
+      window.addEventListener('scroll', setActiveByScroll);
+
+      // click behavior: smooth + focus
+      navLinks.forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const id = a.getAttribute('href').substring(1);
+          const target = document.getElementById(id);
+          if (target) {
+            target.scrollIntoView({behavior:'smooth', block:'start'});
+            target.setAttribute('tabindex','-1');
+            setTimeout(()=> target.focus({preventScroll:true}), 600);
+          }
+        });
+      });
+    })();
+
+    // progressive enhancement: keyboard accessibility for action buttons
+    document.querySelectorAll('a.btn-primary, a.btn-outline, .contact-btn').forEach(btn => {
+      btn.setAttribute('role','button');
+      btn.setAttribute('tabindex','0');
+    });
   </script>
 </body>
 </html>
