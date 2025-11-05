@@ -345,6 +345,7 @@
 			}
 			#sidebar{
 				grid-column:1/2;
+				grid-row:1/2;
 				position:relative;
 				height:auto; 
 				padding:20px; 
@@ -355,6 +356,9 @@
 				top:auto;
 				flex-wrap:wrap;
 				justify-content:center;
+			}
+			#main-content{
+				grid-row:2/3;
 			}
 			.logo{font-size:1.1rem}
 			.profile-pic{width:64px;height:64px;border-width:3px}
@@ -391,7 +395,7 @@
 				width:100%;
 				justify-content:center;
 			}
-			#main-content{ grid-column:1/2 }
+
 			.hero{ padding:28px }
 			.hero-inner{ flex-direction:column; align-items:center; gap:20px }
 			.hero-figure{ width:100%; max-width:100%; }
