@@ -8,6 +8,8 @@
 	<!-- Font & icons -->
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+
 
 	<style>
 		/* -------------------------
@@ -306,6 +308,41 @@
 		.project-title{ margin:10px 0 8px; font-weight:700; color:var(--accent-dark) }
 		.project-desc{ color:var(--text-secondary); font-size:0.95rem; flex:1 }
 		.project-actions{ display:flex; gap:12px; margin-top:14px }
+	
+.project-card{transform: scale(0.9);}
+.project-tools {
+  display: flex;
+  gap: 8px;
+  margin: 5px 0;
+}
+
+.project-tools .tool {
+  display: inline-flex;     /* icon + text inline */
+  align-items: center;      /* vertical align */
+  gap: 4px;                 /* space between icon and text */
+  padding: 2px 8px;         /* snug padding */
+  border-radius: 12px;      /* rounded */
+  font-size: 0.85rem;       /* small text */
+  font-weight: 500;
+  border: 1.5px solid;      /* outline only */
+}
+
+.project-tools .powerbi {
+  color: #F2C811;
+  border-color: #F2C811;
+}
+
+.project-tools .excel {
+  color: #217346;
+  border-color: #217346;
+}
+
+.project-tools .sql {
+  color: #00758F;
+  border-color: #00758F;
+}
+
+
 
 		/* -------------------------
 			CONTACT & FOOTER
@@ -603,7 +640,7 @@
       </nav>
 
       <div class="sidebar-resume">
-        <a class="btn-resume" href="https://drive.google.com/file/d/1wr6o_2LfgXUbI9RLgDy3zS5du-sbNgv3/view?usp=sharing" target="_blank" rel="noopener">
+        <a class="btn-resume" href="https://drive.google.com/file/d/1O9mwucoia-aeMPqQruAewffVyZdTTA4g/view?usp=sharing" target="_blank" rel="noopener">
           <i class="fas fa-file-download" style="margin-right:4px"></i><span>Download CV</span>
         </a>
       </div>
@@ -663,73 +700,135 @@
             <div class="skill-card">
               <i class="fas fa-chart-line" aria-hidden="true"></i>
               <h4>Visualization & BI</h4>
-              <p>Power BI, Tableau, advanced Excel—data storytelling to support business decisions.</p>
+              <p> Power BI, Excel—data storytelling to support business decisions.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- PROJECTS -->
-      <section id="projects" class="projects-section">
-        <div class="reveal">
-          <h2 style="text-align:center;color:var(--accent-dark);font-size:clamp(1.2rem, 3vw, 1.6rem);margin:0 0 18px 0">Projects</h2>
 
-          <div class="projects-grid" style="margin-top:18px">
+     <!-- PROJECTS -->
+<section id="projects" class="projects-section">
+  <div class="reveal">
+    <h2 style="text-align:center;color:var(--accent-dark);
+    font-size:clamp(1.2rem, 3vw, 1.6rem);margin:0 0 18px 0">
+      Projects
+    </h2>
 
-            <!-- Coffee Shop Sales Dashboard -->
-            <article class="project-card" aria-labelledby="p1">
-              <img class="project-thumb" src="2025-09-19.png" alt="Coffee Shop Sales Dashboard thumbnail">
-              <div class="project-body">
-                <span class="project-category">BI Dashboard</span>
-                <h4 id="p1" class="project-title">Coffee Shop Sales Dashboard</h4>
-                <p class="project-desc">
-                  Built using Excel & Power Query to analyze sales trends, top products, and revenue patterns.
-                </p>
-                <div class="project-actions">
-                  <a class="btn-primary" href="https://github.com/horiaahmed/Coffoe-Shop-Sales" target="_blank">
-                    <i class="fas fa-chart-area"></i>&nbsp;View Project
-                  </a>
-                </div>
-              </div>
-            </article>
+    <div class="projects-grid" style="margin-top:18px">
 
-            <!-- HR Analysis Dashboard -->
-            <article class="project-card" aria-labelledby="p2">
-              <img class="project-thumb" src="2025-09-22 (1).png" alt="HR dashboard thumbnail">
-              <div class="project-body">
-                <span class="project-category">BI Dashboard</span>
-                <h4 id="p2" class="project-title">HR Analysis Dashboard</h4>
-                <p class="project-desc">
-                  Salary and workforce insights dashboard to support HR decisions on compensation & retention.
-                </p>
-                <div class="project-actions">
-                  <a class="btn-primary" href="https://github.com/horiaahmed/Hr-analysis-Based-on-Salary" target="_blank">
-                    <i class="fas fa-chart-area"></i>&nbsp;View Project
-                  </a>
-                </div>
-              </div>
-            </article>
+      <!-- Udemy Analysis Dashboard -->
+      <article class="project-card" aria-labelledby="p3">
+        <img id="udemy-thumb" class="project-thumb" src="2025-11-16 (5).png" alt="Udemy Analysis Dashboard">
 
-            <!-- Students Performance Dashboard -->
-            <article class="project-card" aria-labelledby="p3">
-              <img class="project-thumb" src="2025-10-08.png" alt="Students Performance Dashboard thumbnail">
-              <div class="project-body">
-                <span class="project-category">BI Dashboard</span>
-                <h4 id="p3" class="project-title">Students Performance Dashboard</h4>
-                <p class="project-desc">
-                  Dashboard analyzing student scores and identifying performance patterns using Excel & Power Query.
-                </p>
-                <div class="project-actions">
-                  <a class="btn-primary" href="https://github.com/horiaahmed/Students-Performance-Analysis" target="_blank">
-                    <i class="fas fa-chart-area"></i>&nbsp;View Project
-                  </a>
-                </div>
-              </div>
-            </article>
+        <div class="project-body">
 
+          <!-- Tools -->
+          <div class="project-tools">
+            <span class="tool powerbi">
+              <i class="fas fa-chart-bar" style="margin-right:4px;"></i> Power BI
+            </span>
           </div>
+
+          <h4 id="p3" class="project-title">Udemy Courses Analysis Dashboard</h4>
+          <p class="project-desc">
+            A Power BI dashboard analyzing Udemy course data, covering overall trends, pricing insights, and detailed course performance.
+          </p>
+
+          <div class="project-actions">
+            <a class="btn-primary" href="https://github.com/horiaahmed/Udemy-Courses-Analysis-Dashboard" target="_blank">
+              <i class="fas fa-chart-area"></i>&nbsp;View Project
+            </a>
+          </div>
+
         </div>
-      </section>
+      </article>
+
+      <!-- Coffee Shop Sales Dashboard -->
+      <article class="project-card" aria-labelledby="p1">
+        <img class="project-thumb" src="2025-09-19.png" alt="Coffee Shop Sales Dashboard thumbnail">
+
+        <div class="project-body">
+
+          <!-- Tools -->
+          <div class="project-tools">
+            <span class="tool excel">
+              <i class="fas fa-file-excel" style="margin-right:4px;"></i> Excel
+            </span>
+          </div>
+
+          <h4 id="p1" class="project-title">Coffee Shop Sales Dashboard</h4>
+          <p class="project-desc">
+            Built using Excel & Power Query to analyze sales trends, top products, and revenue patterns.
+          </p>
+
+          <div class="project-actions">
+            <a class="btn-primary" href="https://github.com/horiaahmed/Coffoe-Shop-Sales" target="_blank">
+              <i class="fas fa-chart-area"></i>&nbsp;View Project
+            </a>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- HR Analysis Dashboard -->
+      <article class="project-card" aria-labelledby="p2">
+        <img class="project-thumb" src="2025-09-22 (1).png" alt="HR dashboard thumbnail">
+
+        <div class="project-body">
+
+          <!-- Tools -->
+          <div class="project-tools">
+            <span class="tool excel">
+              <i class="fas fa-file-excel" style="margin-right:4px;"></i> Excel
+            </span>
+          </div>
+
+          <h4 id="p2" class="project-title">HR Analysis Dashboard</h4>
+          <p class="project-desc">
+            Salary and workforce insights dashboard to support HR decisions on compensation & retention.
+          </p>
+
+          <div class="project-actions">
+            <a class="btn-primary" href="https://github.com/horiaahmed/Hr-analysis-Based-on-Salary" target="_blank">
+              <i class="fas fa-chart-area"></i>&nbsp;View Project
+            </a>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- Students Performance Dashboard -->
+      <article class="project-card" aria-labelledby="p3">
+        <img class="project-thumb" src="2025-10-08.png" alt="Students Performance Dashboard thumbnail">
+
+        <div class="project-body">
+
+          <!-- Tools -->
+          <div class="project-tools">
+            <span class="tool excel">
+              <i class="fas fa-file-excel" style="margin-right:4px;"></i> Excel
+            </span>
+          </div>
+
+          <h4 id="p3" class="project-title">Students Performance Dashboard</h4>
+          <p class="project-desc">
+            Dashboard analyzing student scores and identifying performance patterns using Excel & Power Query.
+          </p>
+
+          <div class="project-actions">
+            <a class="btn-primary" href="https://github.com/horiaahmed/Students-Performance-Analysis" target="_blank">
+              <i class="fas fa-chart-area"></i>&nbsp;View Project
+            </a>
+          </div>
+
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 
       <!-- CONTACT -->
       <section id="contact" class="contact-section">
